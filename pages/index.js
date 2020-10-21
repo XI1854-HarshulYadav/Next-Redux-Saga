@@ -1,17 +1,42 @@
-import React from "react";
-import Link from "next/link";
-import Counter from "../src/components/Counter";
+import React, {Component, useEffect} from 'react';
+import { connect } from 'react-redux';
+import Container from 'react-bootstrap/Container';
+import { useRouter } from 'next/router'
 
-function index() {
-  return (
-    <div>
-      <Counter />
+import HealthInsurance from '../components/health-insurance';
 
-      <Link href="/about">
-        <a>About Page</a>
-      </Link>
-    </div>
-  );
+import {
+  getBannerNotes
+} from '../store/data/display/actions';
+
+const Index = () => {
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/HEALTH/RELIGARE');
+  }, []);
+
+  return(
+    <div></div>
+  )
+
 }
 
-export default index;
+export default connect(state => state)(Index)
+
+// class Index extends Component {
+//   static async getInitialProps({store}) {
+//     console.log('inside')
+//     store.dispatch({type: 'SOME_ASYNC_ACTION_REQUEST'})
+//     return {staticData: 'Hello world!'}
+//   }
+
+//   render() {
+//     return (
+//       <HealthInsurance />
+//     )
+//   }
+// }
+
+// export default connect(state => state)(Index)

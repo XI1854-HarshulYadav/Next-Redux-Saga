@@ -1,16 +1,27 @@
-import App from "next/app";
-import React from "react";
-import Layout from "../src/components/Layout";
+import React from 'react'
+import App from 'next/app'
+import withReduxSaga from 'next-redux-saga'
 
-class MyApp extends App {
+import wrapper from '../store';
+import '../public/stylesheets/app.scss';
+
+class ExampleApp extends App {
+  static async getInitialProps({Component, ctx}) {
+    let pageProps = {}
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx)
+    }
+
+    return {pageProps}
+  }
+
   render() {
-    const { Component, pageProps } = this.props;
+    const {Component, pageProps} = this.props
     return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    );
+      <Component {...pageProps} />
+    )
   }
 }
 
-export default MyApp;
+export default wrapper.withRedux(withReduxSaga(ExampleApp))

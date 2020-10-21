@@ -1,11 +1,20 @@
-import React from "react";
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 
-function about() {
-  return (
-    <div>
-      <h1>static page with redux</h1>
-    </div>
-  );
+import {
+  getBannerNotes
+} from '../store/data/display/actions';
+
+class About extends Component {
+  static async getInitialProps({store}) {
+    console.log('inside')
+    store.dispatch({type: 'SOME_ASYNC_ACTION_REQUEST'})
+    return {staticData: 'About Page!'}
+  }
+
+  render() {
+    return <div>{this.props.staticData}</div>
+  }
 }
 
-export default about;
+export default connect(state => state)(About)
